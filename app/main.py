@@ -2,12 +2,16 @@ from datetime import date
 from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from decimal import Decimal
+from collections import defaultdict
 
 from .db import Base, engine, get_db
 from .models import Transaction, CategoryRule
 from .categorizer import apply_rules_to_description
 from .schemas import TransactionOut, CategoryRuleCreate, CategoryRuleOut
 from .importers import read_transactions_csv
+from app.utils_dates import month_range
+
 
 Base.metadata.create_all(bind=engine)
 
@@ -135,3 +139,134 @@ def recategorize_transactions(
 
     db.commit()
     return {"checked": len(txs), "updated": updated, "only_uncategorized": only_uncategorized}
+
+@app.get("/analytics/summary")
+def analytics_summary(month: str, db: Session = Depends(get_db)):
+    start, end = month_range(month)
+
+    txs = list(
+        db.execute(
+            select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+        ).scalars().all()
+    )
+
+    income = Decimal("0")
+    expense = Decimal("0")
+
+    for tx in txs:
+        amt = Decimal(tx.amount)
+        if amt >= 0:
+            income += amt
+        else:
+            expense += (-amt)
+
+    net = income - expense
+    return {
+        "month": month,
+        "income": float(income),
+        "expense": float(expense),
+        "net": float(net),
+        "transactions": len(txs),
+    }
+
+
+@app.get("/analytics/by-category")
+def analytics_by_category(month: str, db: Session = Depends(get_db)):
+    start, end = month_range(month)
+
+    txs = list(
+        db.execute(
+            select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+        ).scalars().all()
+    )
+
+    totals = defaultdict(lambda: Decimal("0"))
+    for tx in txs:
+        amt = Decimal(tx.amount)
+        if amt < 0:  # spending only
+            cat = tx.category or "Uncategorized"
+            totals[cat] += (-amt)
+
+    result = [{"category": k, "total": float(v)} for k, v in totals.items()]
+    result.sort(key=lambda x: x["total"], reverse=True)
+
+    return {"month": month, "items": result}
+
+
+@app.get("/analytics/top-descriptions")
+def analytics_top_descriptions(month: str, limit: int = 10, db: Session = Depends(get_db)):
+    start, end = month_range(month)
+
+    txs = list(
+        db.execute(
+            select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+        ).scalars().all()
+    )
+
+    totals = defaultdict(lambda: Decimal("0"))
+    for tx in txs:
+        amt = Decimal(tx.amount)
+        if amt < 0:
+            key = (tx.description or "").strip() or "Unknown"
+            totals[key] += (-amt)
+
+    items = [{"description": k, "total": float(v)} for k, v in totals.items()]
+    items.sort(key=lambda x: x["total"], reverse=True)
+
+    return {"month": month, "limit": limit, "items": items[:limit]}
+
+
+@app.get("/analytics/trend")
+def analytics_trend(
+    months: int = 12,
+    category: str | None = None,
+    db: Session = Depends(get_db),
+):
+    """
+    Returns monthly spending totals for the last N months (including current month).
+    If category is provided, only that category (plus Uncategorized if category='Uncategorized').
+    """
+    # Find max date in DB (so "last N months" is based on your data, not today)
+    max_date = db.execute(select(Transaction.date).order_by(Transaction.date.desc()).limit(1)).scalar_one_or_none()
+    if not max_date:
+        return {"months": months, "category": category, "items": []}
+
+    # Build month keys backwards
+    y, m = max_date.year, max_date.month
+    month_keys = []
+    for _ in range(months):
+        month_keys.append(f"{y:04d}-{m:02d}")
+        m -= 1
+        if m == 0:
+            m = 12
+            y -= 1
+    month_keys.reverse()
+
+    series = []
+    for mk in month_keys:
+        start, end = month_range(mk)
+        stmt = select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+
+        txs = list(db.execute(stmt).scalars().all())
+
+        total = Decimal("0")
+        for tx in txs:
+            amt = Decimal(tx.amount)
+            if amt >= 0:
+                continue  # spending trend only
+
+            tx_cat = tx.category or "Uncategorized"
+            if category:
+                if category == "Uncategorized":
+                    if tx_cat != "Uncategorized":
+                        continue
+                else:
+                    if tx_cat != category:
+                        continue
+
+            total += (-amt)
+
+        series.append({"month": mk, "spend": float(total)})
+
+    return {"months": months, "category": category, "items": series}
+

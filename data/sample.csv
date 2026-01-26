@@ -1,0 +1,5 @@
+date,description,amount,currency,category,account
+2025-01-01,Salary,2500,EUR,Income,Main
+2025-01-02,Supermarket,-45.60,EUR,Groceries,Main
+2025-01-03,Netflix,-12.99,EUR,Subscriptions,Main
+2025-01-05,Rent,-850,EUR,Housing,Main

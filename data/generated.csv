@@ -1,0 +1,599 @@
+date,description,amount,currency,category,account
+2024-01-01,Salary,2600.00,EUR,Income,Main
+2024-01-02,Rent,-950.00,EUR,Housing,Main
+2024-01-03,S-Market,-67.49,EUR,Groceries,Main
+2024-01-05,Pharmacy,-11.44,EUR,Health,Main
+2024-01-09,HSL,-10.20,EUR,Transport,Main
+2024-01-10,K-Market,-25.20,EUR,Groceries,Main
+2024-01-11,HSL,-2.61,EUR,Transport,Main
+2024-01-12,VR,-23.51,EUR,Transport,Main
+2024-01-13,Pharmacy,-29.48,EUR,Health,Main
+2024-01-15,Netflix,-10.78,EUR,Subscriptions,Main
+2024-01-16,Wolt,-13.97,EUR,Eating Out,Main
+2024-01-18,Spotify,-12.44,EUR,Subscriptions,Main
+2024-01-19,Gym,-34.46,EUR,Health,Main
+2024-01-20,Internet,-22.32,EUR,Utilities,Main
+2024-01-21,Netflix,-15.84,EUR,Subscriptions,Main
+2024-01-23,S-Market,-45.84,EUR,Groceries,Main
+2024-01-26,Spotify,-7.27,EUR,Subscriptions,Main
+2024-01-27,Wolt,-38.04,EUR,Eating Out,Main
+2024-01-28,Netflix,-14.75,EUR,Subscriptions,Main
+2024-01-28,Wolt,-38.30,EUR,Eating Out,Main
+2024-02-01,Salary,2600.00,EUR,Income,Main
+2024-02-01,S-Market,-14.25,EUR,Groceries,Main
+2024-02-02,Rent,-950.00,EUR,Housing,Main
+2024-02-02,Restaurant,-60.46,EUR,Eating Out,Main
+2024-02-03,Electricity,-58.58,EUR,Utilities,Main
+2024-02-04,Gym,-34.22,EUR,Health,Main
+2024-02-04,Wolt,-15.86,EUR,Eating Out,Main
+2024-02-06,Lidl,-46.39,EUR,Groceries,Main
+2024-02-07,Gym,-23.22,EUR,Health,Main
+2024-02-08,Pharmacy,-13.34,EUR,Health,Main
+2024-02-10,Electricity,-61.53,EUR,Utilities,Main
+2024-02-11,HSL,-3.96,EUR,Transport,Main
+2024-02-15,Wolt,-18.02,EUR,Eating Out,Main
+2024-02-18,Lidl,-43.91,EUR,Groceries,Main
+2024-02-18,Pharmacy,-33.51,EUR,Health,Main
+2024-02-19,Electricity,-25.40,EUR,Utilities,Main
+2024-02-20,Internet,-43.56,EUR,Utilities,Main
+2024-02-21,Pharmacy,-16.77,EUR,Health,Main
+2024-02-22,S-Market,-43.71,EUR,Groceries,Main
+2024-02-23,HSL,-2.88,EUR,Transport,Main
+2024-02-24,Netflix,-14.81,EUR,Subscriptions,Main
+2024-02-26,Netflix,-14.91,EUR,Subscriptions,Main
+2024-02-29,Restaurant,-37.66,EUR,Eating Out,Main
+2024-03-01,Salary,2600.00,EUR,Income,Main
+2024-03-02,Rent,-950.00,EUR,Housing,Main
+2024-03-02,Gym,-59.72,EUR,Health,Main
+2024-03-02,Gym,-39.22,EUR,Health,Main
+2024-03-03,Electricity,-54.26,EUR,Utilities,Main
+2024-03-05,Lidl,-34.85,EUR,Groceries,Main
+2024-03-07,Netflix,-11.17,EUR,Subscriptions,Main
+2024-03-08,K-Market,-31.54,EUR,Groceries,Main
+2024-03-11,Lidl,-26.50,EUR,Groceries,Main
+2024-03-13,Pharmacy,-14.89,EUR,Health,Main
+2024-03-15,Internet,-40.58,EUR,Utilities,Main
+2024-03-16,Electricity,-100.33,EUR,Utilities,Main
+2024-03-18,K-Market,-32.65,EUR,Groceries,Main
+2024-03-19,HSL,-11.00,EUR,Transport,Main
+2024-03-20,Gym,-52.34,EUR,Health,Main
+2024-03-21,Netflix,-17.64,EUR,Subscriptions,Main
+2024-03-22,HSL,-3.33,EUR,Transport,Main
+2024-03-23,Gym,-44.96,EUR,Health,Main
+2024-03-23,Wolt,-39.73,EUR,Eating Out,Main
+2024-03-24,Internet,-34.29,EUR,Utilities,Main
+2024-03-25,S-Market,-73.68,EUR,Groceries,Main
+2024-03-26,Internet,-20.98,EUR,Utilities,Main
+2024-03-27,Spotify,-12.52,EUR,Subscriptions,Main
+2024-03-29,Electricity,-59.58,EUR,Utilities,Main
+2024-03-30,Electricity,-35.89,EUR,Utilities,Main
+2024-03-31,Wolt,-41.86,EUR,Eating Out,Main
+2024-03-31,Internet,-34.68,EUR,Utilities,Main
+2024-04-01,Salary,2600.00,EUR,Income,Main
+2024-04-01,Wolt,-44.35,EUR,Eating Out,Main
+2024-04-02,Rent,-950.00,EUR,Housing,Main
+2024-04-02,Netflix,-11.25,EUR,Subscriptions,Main
+2024-04-03,K-Market,-5.50,EUR,Groceries,Main
+2024-04-04,Restaurant,-27.19,EUR,Eating Out,Main
+2024-04-05,Lidl,-30.56,EUR,Groceries,Main
+2024-04-06,HSL,-2.36,EUR,Transport,Main
+2024-04-08,Netflix,-12.07,EUR,Subscriptions,Main
+2024-04-09,Lidl,-11.17,EUR,Groceries,Main
+2024-04-10,Gym,-46.50,EUR,Health,Main
+2024-04-11,Pharmacy,-17.62,EUR,Health,Main
+2024-04-12,Pharmacy,-8.92,EUR,Health,Main
+2024-04-14,Wolt,-12.13,EUR,Eating Out,Main
+2024-04-15,Lidl,-15.36,EUR,Groceries,Main
+2024-04-16,S-Market,-48.95,EUR,Groceries,Main
+2024-04-18,Pharmacy,-19.47,EUR,Health,Main
+2024-04-19,Pharmacy,-6.70,EUR,Health,Main
+2024-04-20,S-Market,-45.54,EUR,Groceries,Main
+2024-04-21,S-Market,-41.03,EUR,Groceries,Main
+2024-04-22,Pharmacy,-23.18,EUR,Health,Main
+2024-04-25,Internet,-29.34,EUR,Utilities,Main
+2024-04-26,Electricity,-72.32,EUR,Utilities,Main
+2024-04-27,Pharmacy,-31.78,EUR,Health,Main
+2024-04-29,Spotify,-10.09,EUR,Subscriptions,Main
+2024-05-01,Salary,2600.00,EUR,Income,Main
+2024-05-02,Rent,-950.00,EUR,Housing,Main
+2024-05-03,Internet,-18.67,EUR,Utilities,Main
+2024-05-04,Restaurant,-66.22,EUR,Eating Out,Main
+2024-05-06,HSL,-11.71,EUR,Transport,Main
+2024-05-08,Lidl,-59.47,EUR,Groceries,Main
+2024-05-09,Lidl,-44.73,EUR,Groceries,Main
+2024-05-10,Spotify,-9.37,EUR,Subscriptions,Main
+2024-05-11,Electricity,-56.60,EUR,Utilities,Main
+2024-05-13,Spotify,-9.32,EUR,Subscriptions,Main
+2024-05-14,Pharmacy,-33.82,EUR,Health,Main
+2024-05-16,HSL,-14.63,EUR,Transport,Main
+2024-05-18,Internet,-20.45,EUR,Utilities,Main
+2024-05-19,Restaurant,-77.33,EUR,Eating Out,Main
+2024-05-22,Wolt,-28.32,EUR,Eating Out,Main
+2024-05-25,S-Market,-28.82,EUR,Groceries,Main
+2024-05-25,K-Market,-27.21,EUR,Groceries,Main
+2024-05-26,HSL,-2.87,EUR,Transport,Main
+2024-05-26,S-Market,-41.76,EUR,Groceries,Main
+2024-05-28,VR,-31.00,EUR,Transport,Main
+2024-05-30,S-Market,-77.84,EUR,Groceries,Main
+2024-06-01,Salary,2600.00,EUR,Income,Main
+2024-06-02,Rent,-950.00,EUR,Housing,Main
+2024-06-02,HSL,-5.77,EUR,Transport,Main
+2024-06-03,Lidl,-22.07,EUR,Groceries,Main
+2024-06-04,VR,-9.37,EUR,Transport,Main
+2024-06-06,HSL,-8.69,EUR,Transport,Main
+2024-06-08,Restaurant,-50.25,EUR,Eating Out,Main
+2024-06-09,Spotify,-13.79,EUR,Subscriptions,Main
+2024-06-14,Electricity,-83.60,EUR,Utilities,Main
+2024-06-15,K-Market,-34.29,EUR,Groceries,Main
+2024-06-15,K-Market,-7.48,EUR,Groceries,Main
+2024-06-16,Lidl,-10.88,EUR,Groceries,Main
+2024-06-16,Restaurant,-78.89,EUR,Eating Out,Main
+2024-06-17,Restaurant,-87.97,EUR,Eating Out,Main
+2024-06-18,Electricity,-49.31,EUR,Utilities,Main
+2024-06-19,Lidl,-21.99,EUR,Groceries,Main
+2024-06-19,Trip,-450.00,EUR,Travel,Main
+2024-06-21,Netflix,-17.78,EUR,Subscriptions,Main
+2024-06-22,VR,-16.06,EUR,Transport,Main
+2024-06-22,Lidl,-8.06,EUR,Groceries,Main
+2024-06-23,Pharmacy,-24.68,EUR,Health,Main
+2024-06-23,Laptop,-899.00,EUR,Shopping,Main
+2024-06-24,Insurance,-220.00,EUR,Insurance,Main
+2024-06-25,S-Market,-28.49,EUR,Groceries,Main
+2024-06-27,K-Market,-18.79,EUR,Groceries,Main
+2024-06-29,Pharmacy,-30.60,EUR,Health,Main
+2024-06-29,Lidl,-42.19,EUR,Groceries,Main
+2024-06-30,Spotify,-12.35,EUR,Subscriptions,Main
+2024-07-01,Salary,2600.00,EUR,Income,Main
+2024-07-01,Gym,-25.98,EUR,Health,Main
+2024-07-02,Rent,-950.00,EUR,Housing,Main
+2024-07-02,Restaurant,-30.13,EUR,Eating Out,Main
+2024-07-03,Electricity,-109.19,EUR,Utilities,Main
+2024-07-04,Electricity,-90.11,EUR,Utilities,Main
+2024-07-05,Pharmacy,-27.59,EUR,Health,Main
+2024-07-06,K-Market,-33.92,EUR,Groceries,Main
+2024-07-07,Restaurant,-86.93,EUR,Eating Out,Main
+2024-07-08,S-Market,-12.18,EUR,Groceries,Main
+2024-07-10,S-Market,-36.36,EUR,Groceries,Main
+2024-07-11,K-Market,-26.97,EUR,Groceries,Main
+2024-07-12,Restaurant,-37.12,EUR,Eating Out,Main
+2024-07-15,S-Market,-56.15,EUR,Groceries,Main
+2024-07-17,VR,-37.94,EUR,Transport,Main
+2024-07-18,HSL,-11.48,EUR,Transport,Main
+2024-07-20,Gym,-53.82,EUR,Health,Main
+2024-07-24,HSL,-3.01,EUR,Transport,Main
+2024-07-27,Wolt,-16.40,EUR,Eating Out,Main
+2024-07-27,Gym,-22.43,EUR,Health,Main
+2024-07-29,Restaurant,-54.27,EUR,Eating Out,Main
+2024-07-30,VR,-25.19,EUR,Transport,Main
+2024-07-31,S-Market,-79.53,EUR,Groceries,Main
+2024-08-01,Salary,2600.00,EUR,Income,Main
+2024-08-01,VR,-44.19,EUR,Transport,Main
+2024-08-02,Rent,-950.00,EUR,Housing,Main
+2024-08-02,K-Market,-15.14,EUR,Groceries,Main
+2024-08-04,Spotify,-8.47,EUR,Subscriptions,Main
+2024-08-05,HSL,-2.97,EUR,Transport,Main
+2024-08-07,VR,-43.25,EUR,Transport,Main
+2024-08-09,Pharmacy,-13.39,EUR,Health,Main
+2024-08-11,Spotify,-7.17,EUR,Subscriptions,Main
+2024-08-13,Gym,-36.22,EUR,Health,Main
+2024-08-14,Spotify,-9.41,EUR,Subscriptions,Main
+2024-08-16,K-Market,-16.36,EUR,Groceries,Main
+2024-08-18,K-Market,-36.55,EUR,Groceries,Main
+2024-08-18,VR,-17.37,EUR,Transport,Main
+2024-08-20,Wolt,-14.52,EUR,Eating Out,Main
+2024-08-21,Internet,-23.25,EUR,Utilities,Main
+2024-08-24,Lidl,-20.96,EUR,Groceries,Main
+2024-08-24,VR,-24.14,EUR,Transport,Main
+2024-08-26,Spotify,-13.19,EUR,Subscriptions,Main
+2024-08-27,Restaurant,-48.00,EUR,Eating Out,Main
+2024-08-28,Pharmacy,-21.48,EUR,Health,Main
+2024-08-29,K-Market,-37.67,EUR,Groceries,Main
+2024-08-30,Wolt,-36.84,EUR,Eating Out,Main
+2024-08-31,K-Market,-36.92,EUR,Groceries,Main
+2024-08-31,Pharmacy,-8.82,EUR,Health,Main
+2024-09-01,Salary,2600.00,EUR,Income,Main
+2024-09-01,VR,-17.46,EUR,Transport,Main
+2024-09-01,Electricity,-117.63,EUR,Utilities,Main
+2024-09-02,Rent,-950.00,EUR,Housing,Main
+2024-09-03,VR,-25.88,EUR,Transport,Main
+2024-09-04,S-Market,-21.71,EUR,Groceries,Main
+2024-09-07,HSL,-7.89,EUR,Transport,Main
+2024-09-09,Pharmacy,-10.77,EUR,Health,Main
+2024-09-15,Spotify,-9.68,EUR,Subscriptions,Main
+2024-09-16,HSL,-6.90,EUR,Transport,Main
+2024-09-20,Lidl,-43.71,EUR,Groceries,Main
+2024-09-21,HSL,-3.20,EUR,Transport,Main
+2024-09-22,Restaurant,-51.21,EUR,Eating Out,Main
+2024-09-23,K-Market,-9.45,EUR,Groceries,Main
+2024-09-24,Internet,-41.87,EUR,Utilities,Main
+2024-09-25,Wolt,-28.16,EUR,Eating Out,Main
+2024-09-27,Pharmacy,-30.66,EUR,Health,Main
+2024-09-28,S-Market,-25.67,EUR,Groceries,Main
+2024-09-28,Lidl,-35.16,EUR,Groceries,Main
+2024-09-29,Electricity,-90.10,EUR,Utilities,Main
+2024-09-30,Gym,-23.40,EUR,Health,Main
+2024-10-01,Salary,2600.00,EUR,Income,Main
+2024-10-01,K-Market,-32.38,EUR,Groceries,Main
+2024-10-02,Rent,-950.00,EUR,Housing,Main
+2024-10-03,Restaurant,-70.05,EUR,Eating Out,Main
+2024-10-04,Restaurant,-37.63,EUR,Eating Out,Main
+2024-10-05,S-Market,-16.96,EUR,Groceries,Main
+2024-10-09,K-Market,-5.37,EUR,Groceries,Main
+2024-10-11,Netflix,-15.16,EUR,Subscriptions,Main
+2024-10-12,HSL,-9.11,EUR,Transport,Main
+2024-10-14,K-Market,-5.76,EUR,Groceries,Main
+2024-10-15,Restaurant,-65.30,EUR,Eating Out,Main
+2024-10-18,Netflix,-11.81,EUR,Subscriptions,Main
+2024-10-19,Spotify,-9.54,EUR,Subscriptions,Main
+2024-10-20,VR,-35.35,EUR,Transport,Main
+2024-10-20,Pharmacy,-7.02,EUR,Health,Main
+2024-10-21,HSL,-6.05,EUR,Transport,Main
+2024-10-22,HSL,-8.05,EUR,Transport,Main
+2024-10-24,S-Market,-76.63,EUR,Groceries,Main
+2024-10-25,Lidl,-54.62,EUR,Groceries,Main
+2024-10-26,K-Market,-38.21,EUR,Groceries,Main
+2024-10-29,Lidl,-29.60,EUR,Groceries,Main
+2024-10-30,Lidl,-28.45,EUR,Groceries,Main
+2024-10-31,Netflix,-15.86,EUR,Subscriptions,Main
+2024-11-01,Salary,2600.00,EUR,Income,Main
+2024-11-01,Lidl,-25.12,EUR,Groceries,Main
+2024-11-02,Rent,-950.00,EUR,Housing,Main
+2024-11-03,Restaurant,-70.78,EUR,Eating Out,Main
+2024-11-03,Netflix,-17.88,EUR,Subscriptions,Main
+2024-11-04,S-Market,-10.20,EUR,Groceries,Main
+2024-11-06,S-Market,-49.28,EUR,Groceries,Main
+2024-11-07,Spotify,-9.50,EUR,Subscriptions,Main
+2024-11-08,Internet,-27.97,EUR,Utilities,Main
+2024-11-10,HSL,-6.20,EUR,Transport,Main
+2024-11-11,Gym,-21.21,EUR,Health,Main
+2024-11-12,Internet,-33.76,EUR,Utilities,Main
+2024-11-13,Spotify,-7.24,EUR,Subscriptions,Main
+2024-11-15,VR,-15.21,EUR,Transport,Main
+2024-11-17,Wolt,-13.44,EUR,Eating Out,Main
+2024-11-17,Electricity,-91.66,EUR,Utilities,Main
+2024-11-21,Internet,-34.02,EUR,Utilities,Main
+2024-11-22,K-Market,-33.91,EUR,Groceries,Main
+2024-11-24,Internet,-22.53,EUR,Utilities,Main
+2024-11-25,Gym,-25.31,EUR,Health,Main
+2024-11-26,K-Market,-33.09,EUR,Groceries,Main
+2024-11-27,Electricity,-97.28,EUR,Utilities,Main
+2024-11-28,Netflix,-16.89,EUR,Subscriptions,Main
+2024-11-29,Internet,-38.47,EUR,Utilities,Main
+2024-11-30,Internet,-19.80,EUR,Utilities,Main
+2024-12-01,Salary,2600.00,EUR,Income,Main
+2024-12-01,Gym,-42.10,EUR,Health,Main
+2024-12-02,Rent,-950.00,EUR,Housing,Main
+2024-12-03,S-Market,-79.15,EUR,Groceries,Main
+2024-12-07,Gym,-26.93,EUR,Health,Main
+2024-12-09,HSL,-11.72,EUR,Transport,Main
+2024-12-10,Restaurant,-73.17,EUR,Eating Out,Main
+2024-12-11,VR,-18.87,EUR,Transport,Main
+2024-12-12,Netflix,-12.03,EUR,Subscriptions,Main
+2024-12-14,HSL,-3.99,EUR,Transport,Main
+2024-12-14,Wolt,-18.21,EUR,Eating Out,Main
+2024-12-15,HSL,-8.60,EUR,Transport,Main
+2024-12-17,Restaurant,-52.47,EUR,Eating Out,Main
+2024-12-20,HSL,-12.93,EUR,Transport,Main
+2024-12-21,VR,-16.62,EUR,Transport,Main
+2024-12-21,K-Market,-11.64,EUR,Groceries,Main
+2024-12-22,S-Market,-36.06,EUR,Groceries,Main
+2024-12-23,Gym,-44.12,EUR,Health,Main
+2024-12-24,Restaurant,-86.20,EUR,Eating Out,Main
+2024-12-26,Wolt,-23.54,EUR,Eating Out,Main
+2024-12-28,VR,-9.41,EUR,Transport,Main
+2024-12-29,K-Market,-33.66,EUR,Groceries,Main
+2024-12-30,Netflix,-11.48,EUR,Subscriptions,Main
+2025-01-01,Salary,2600.00,EUR,Income,Main
+2025-01-02,Rent,-950.00,EUR,Housing,Main
+2025-01-02,Pharmacy,-19.51,EUR,Health,Main
+2025-01-03,Internet,-26.86,EUR,Utilities,Main
+2025-01-04,S-Market,-55.71,EUR,Groceries,Main
+2025-01-05,VR,-32.71,EUR,Transport,Main
+2025-01-05,Spotify,-13.67,EUR,Subscriptions,Main
+2025-01-07,Netflix,-13.31,EUR,Subscriptions,Main
+2025-01-09,Internet,-25.91,EUR,Utilities,Main
+2025-01-11,K-Market,-20.20,EUR,Groceries,Main
+2025-01-11,Lidl,-30.04,EUR,Groceries,Main
+2025-01-12,Netflix,-13.69,EUR,Subscriptions,Main
+2025-01-15,Restaurant,-76.45,EUR,Eating Out,Main
+2025-01-16,Wolt,-32.53,EUR,Eating Out,Main
+2025-01-17,Pharmacy,-10.15,EUR,Health,Main
+2025-01-18,Lidl,-56.13,EUR,Groceries,Main
+2025-01-20,Internet,-20.92,EUR,Utilities,Main
+2025-01-22,Gym,-32.58,EUR,Health,Main
+2025-01-23,Restaurant,-47.15,EUR,Eating Out,Main
+2025-01-24,Wolt,-34.71,EUR,Eating Out,Main
+2025-01-25,HSL,-10.07,EUR,Transport,Main
+2025-01-26,Gym,-27.32,EUR,Health,Main
+2025-01-26,HSL,-2.54,EUR,Transport,Main
+2025-01-27,Lidl,-27.95,EUR,Groceries,Main
+2025-01-30,HSL,-2.53,EUR,Transport,Main
+2025-01-31,Internet,-35.17,EUR,Utilities,Main
+2025-02-01,Salary,2600.00,EUR,Income,Main
+2025-02-01,Spotify,-11.20,EUR,Subscriptions,Main
+2025-02-01,Pharmacy,-30.47,EUR,Health,Main
+2025-02-02,Rent,-950.00,EUR,Housing,Main
+2025-02-02,VR,-29.56,EUR,Transport,Main
+2025-02-03,Restaurant,-45.72,EUR,Eating Out,Main
+2025-02-04,Lidl,-9.22,EUR,Groceries,Main
+2025-02-05,Gym,-38.61,EUR,Health,Main
+2025-02-06,Wolt,-37.74,EUR,Eating Out,Main
+2025-02-07,Lidl,-50.15,EUR,Groceries,Main
+2025-02-08,Netflix,-13.44,EUR,Subscriptions,Main
+2025-02-08,S-Market,-66.16,EUR,Groceries,Main
+2025-02-09,K-Market,-27.28,EUR,Groceries,Main
+2025-02-11,Internet,-36.61,EUR,Utilities,Main
+2025-02-13,Spotify,-11.57,EUR,Subscriptions,Main
+2025-02-14,K-Market,-35.00,EUR,Groceries,Main
+2025-02-14,Trip,-450.00,EUR,Travel,Main
+2025-02-15,S-Market,-23.56,EUR,Groceries,Main
+2025-02-15,Laptop,-899.00,EUR,Shopping,Main
+2025-02-16,Internet,-42.48,EUR,Utilities,Main
+2025-02-18,HSL,-2.85,EUR,Transport,Main
+2025-02-19,Internet,-22.57,EUR,Utilities,Main
+2025-02-20,Insurance,-220.00,EUR,Insurance,Main
+2025-02-21,Gym,-25.74,EUR,Health,Main
+2025-02-22,HSL,-9.69,EUR,Transport,Main
+2025-02-23,Netflix,-10.29,EUR,Subscriptions,Main
+2025-02-23,Lidl,-28.98,EUR,Groceries,Main
+2025-02-24,VR,-33.15,EUR,Transport,Main
+2025-02-25,Lidl,-49.19,EUR,Groceries,Main
+2025-02-27,K-Market,-27.27,EUR,Groceries,Main
+2025-02-28,Gym,-42.21,EUR,Health,Main
+2025-03-01,Salary,2600.00,EUR,Income,Main
+2025-03-01,S-Market,-27.64,EUR,Groceries,Main
+2025-03-02,Rent,-950.00,EUR,Housing,Main
+2025-03-02,Electricity,-99.77,EUR,Utilities,Main
+2025-03-04,Wolt,-16.82,EUR,Eating Out,Main
+2025-03-08,VR,-38.33,EUR,Transport,Main
+2025-03-10,Wolt,-42.64,EUR,Eating Out,Main
+2025-03-11,Electricity,-20.18,EUR,Utilities,Main
+2025-03-14,Spotify,-9.92,EUR,Subscriptions,Main
+2025-03-15,Gym,-29.09,EUR,Health,Main
+2025-03-15,Restaurant,-23.19,EUR,Eating Out,Main
+2025-03-18,Pharmacy,-11.73,EUR,Health,Main
+2025-03-19,Wolt,-16.41,EUR,Eating Out,Main
+2025-03-20,Gym,-26.34,EUR,Health,Main
+2025-03-22,Gym,-23.83,EUR,Health,Main
+2025-03-23,Internet,-23.09,EUR,Utilities,Main
+2025-03-24,K-Market,-6.96,EUR,Groceries,Main
+2025-03-25,Netflix,-14.76,EUR,Subscriptions,Main
+2025-03-26,Wolt,-42.93,EUR,Eating Out,Main
+2025-03-27,HSL,-4.15,EUR,Transport,Main
+2025-03-29,Lidl,-20.36,EUR,Groceries,Main
+2025-04-01,Salary,2600.00,EUR,Income,Main
+2025-04-01,HSL,-3.85,EUR,Transport,Main
+2025-04-02,Rent,-950.00,EUR,Housing,Main
+2025-04-03,Pharmacy,-24.43,EUR,Health,Main
+2025-04-04,Wolt,-17.76,EUR,Eating Out,Main
+2025-04-05,K-Market,-39.79,EUR,Groceries,Main
+2025-04-06,Pharmacy,-5.19,EUR,Health,Main
+2025-04-07,Electricity,-111.23,EUR,Utilities,Main
+2025-04-09,Lidl,-19.75,EUR,Groceries,Main
+2025-04-12,Electricity,-112.52,EUR,Utilities,Main
+2025-04-13,K-Market,-14.31,EUR,Groceries,Main
+2025-04-13,Pharmacy,-25.38,EUR,Health,Main
+2025-04-14,Pharmacy,-34.16,EUR,Health,Main
+2025-04-16,HSL,-3.11,EUR,Transport,Main
+2025-04-17,Lidl,-21.54,EUR,Groceries,Main
+2025-04-19,Electricity,-111.50,EUR,Utilities,Main
+2025-04-21,Spotify,-13.35,EUR,Subscriptions,Main
+2025-04-22,Electricity,-118.17,EUR,Utilities,Main
+2025-04-23,Pharmacy,-19.08,EUR,Health,Main
+2025-04-24,Electricity,-20.64,EUR,Utilities,Main
+2025-04-26,VR,-37.20,EUR,Transport,Main
+2025-04-26,Spotify,-11.36,EUR,Subscriptions,Main
+2025-05-01,Salary,2600.00,EUR,Income,Main
+2025-05-01,Netflix,-17.82,EUR,Subscriptions,Main
+2025-05-02,Rent,-950.00,EUR,Housing,Main
+2025-05-02,K-Market,-6.46,EUR,Groceries,Main
+2025-05-03,Electricity,-26.78,EUR,Utilities,Main
+2025-05-05,HSL,-12.63,EUR,Transport,Main
+2025-05-06,Restaurant,-24.62,EUR,Eating Out,Main
+2025-05-07,Electricity,-114.43,EUR,Utilities,Main
+2025-05-10,Internet,-37.61,EUR,Utilities,Main
+2025-05-12,Gym,-24.00,EUR,Health,Main
+2025-05-14,HSL,-5.83,EUR,Transport,Main
+2025-05-17,K-Market,-30.05,EUR,Groceries,Main
+2025-05-18,Wolt,-28.62,EUR,Eating Out,Main
+2025-05-18,VR,-30.88,EUR,Transport,Main
+2025-05-20,Spotify,-10.63,EUR,Subscriptions,Main
+2025-05-22,K-Market,-23.83,EUR,Groceries,Main
+2025-05-24,VR,-14.30,EUR,Transport,Main
+2025-05-24,K-Market,-23.32,EUR,Groceries,Main
+2025-05-29,Lidl,-58.29,EUR,Groceries,Main
+2025-05-30,Pharmacy,-12.82,EUR,Health,Main
+2025-05-31,HSL,-14.20,EUR,Transport,Main
+2025-05-31,HSL,-8.48,EUR,Transport,Main
+2025-06-01,Salary,2600.00,EUR,Income,Main
+2025-06-02,Rent,-950.00,EUR,Housing,Main
+2025-06-03,Electricity,-76.13,EUR,Utilities,Main
+2025-06-07,Electricity,-28.62,EUR,Utilities,Main
+2025-06-08,HSL,-5.94,EUR,Transport,Main
+2025-06-08,Spotify,-13.31,EUR,Subscriptions,Main
+2025-06-09,Spotify,-13.88,EUR,Subscriptions,Main
+2025-06-10,Gym,-25.08,EUR,Health,Main
+2025-06-11,Electricity,-95.30,EUR,Utilities,Main
+2025-06-12,Netflix,-14.65,EUR,Subscriptions,Main
+2025-06-13,Gym,-46.48,EUR,Health,Main
+2025-06-14,Gym,-47.56,EUR,Health,Main
+2025-06-14,VR,-29.43,EUR,Transport,Main
+2025-06-16,HSL,-8.60,EUR,Transport,Main
+2025-06-18,Wolt,-17.10,EUR,Eating Out,Main
+2025-06-22,HSL,-5.36,EUR,Transport,Main
+2025-06-23,S-Market,-21.52,EUR,Groceries,Main
+2025-06-24,HSL,-7.00,EUR,Transport,Main
+2025-06-25,Internet,-24.06,EUR,Utilities,Main
+2025-06-30,K-Market,-18.97,EUR,Groceries,Main
+2025-07-01,Salary,2600.00,EUR,Income,Main
+2025-07-01,Electricity,-42.25,EUR,Utilities,Main
+2025-07-02,Rent,-950.00,EUR,Housing,Main
+2025-07-02,VR,-25.14,EUR,Transport,Main
+2025-07-04,Spotify,-7.04,EUR,Subscriptions,Main
+2025-07-06,Restaurant,-49.48,EUR,Eating Out,Main
+2025-07-08,Internet,-34.25,EUR,Utilities,Main
+2025-07-09,HSL,-10.83,EUR,Transport,Main
+2025-07-10,Gym,-37.30,EUR,Health,Main
+2025-07-12,HSL,-12.17,EUR,Transport,Main
+2025-07-13,VR,-39.43,EUR,Transport,Main
+2025-07-14,K-Market,-26.75,EUR,Groceries,Main
+2025-07-15,Restaurant,-66.28,EUR,Eating Out,Main
+2025-07-16,Restaurant,-42.96,EUR,Eating Out,Main
+2025-07-18,S-Market,-12.67,EUR,Groceries,Main
+2025-07-19,Internet,-43.54,EUR,Utilities,Main
+2025-07-19,HSL,-8.75,EUR,Transport,Main
+2025-07-21,Electricity,-67.57,EUR,Utilities,Main
+2025-07-23,Netflix,-14.17,EUR,Subscriptions,Main
+2025-07-24,Gym,-28.40,EUR,Health,Main
+2025-07-25,Spotify,-10.60,EUR,Subscriptions,Main
+2025-07-26,Wolt,-23.73,EUR,Eating Out,Main
+2025-07-27,Spotify,-7.43,EUR,Subscriptions,Main
+2025-07-29,Restaurant,-68.88,EUR,Eating Out,Main
+2025-07-30,VR,-12.04,EUR,Transport,Main
+2025-08-01,Salary,2600.00,EUR,Income,Main
+2025-08-01,Pharmacy,-34.15,EUR,Health,Main
+2025-08-02,Rent,-950.00,EUR,Housing,Main
+2025-08-02,Gym,-28.48,EUR,Health,Main
+2025-08-04,Restaurant,-33.52,EUR,Eating Out,Main
+2025-08-05,Electricity,-42.60,EUR,Utilities,Main
+2025-08-06,Netflix,-15.33,EUR,Subscriptions,Main
+2025-08-07,Internet,-39.49,EUR,Utilities,Main
+2025-08-08,VR,-36.12,EUR,Transport,Main
+2025-08-09,Gym,-34.19,EUR,Health,Main
+2025-08-10,Spotify,-11.81,EUR,Subscriptions,Main
+2025-08-10,Spotify,-11.75,EUR,Subscriptions,Main
+2025-08-11,Internet,-36.65,EUR,Utilities,Main
+2025-08-15,Spotify,-11.36,EUR,Subscriptions,Main
+2025-08-17,Spotify,-7.40,EUR,Subscriptions,Main
+2025-08-18,Netflix,-16.27,EUR,Subscriptions,Main
+2025-08-20,Restaurant,-60.77,EUR,Eating Out,Main
+2025-08-21,HSL,-14.37,EUR,Transport,Main
+2025-08-22,VR,-30.50,EUR,Transport,Main
+2025-08-23,Lidl,-48.37,EUR,Groceries,Main
+2025-08-24,Spotify,-12.54,EUR,Subscriptions,Main
+2025-08-26,Wolt,-44.25,EUR,Eating Out,Main
+2025-08-28,Pharmacy,-28.64,EUR,Health,Main
+2025-08-29,HSL,-8.43,EUR,Transport,Main
+2025-08-30,Gym,-46.85,EUR,Health,Main
+2025-08-31,Spotify,-8.64,EUR,Subscriptions,Main
+2025-09-01,Salary,2600.00,EUR,Income,Main
+2025-09-02,Rent,-950.00,EUR,Housing,Main
+2025-09-02,K-Market,-21.95,EUR,Groceries,Main
+2025-09-03,Electricity,-69.14,EUR,Utilities,Main
+2025-09-04,Pharmacy,-22.99,EUR,Health,Main
+2025-09-05,Lidl,-51.72,EUR,Groceries,Main
+2025-09-06,Restaurant,-40.78,EUR,Eating Out,Main
+2025-09-07,Restaurant,-25.28,EUR,Eating Out,Main
+2025-09-08,Restaurant,-65.26,EUR,Eating Out,Main
+2025-09-11,Netflix,-16.47,EUR,Subscriptions,Main
+2025-09-13,Lidl,-9.76,EUR,Groceries,Main
+2025-09-14,Netflix,-10.76,EUR,Subscriptions,Main
+2025-09-15,Netflix,-13.80,EUR,Subscriptions,Main
+2025-09-16,Internet,-42.37,EUR,Utilities,Main
+2025-09-20,Netflix,-16.62,EUR,Subscriptions,Main
+2025-09-21,VR,-40.30,EUR,Transport,Main
+2025-09-24,S-Market,-33.16,EUR,Groceries,Main
+2025-09-27,Internet,-44.89,EUR,Utilities,Main
+2025-09-28,Spotify,-10.82,EUR,Subscriptions,Main
+2025-10-01,Salary,2600.00,EUR,Income,Main
+2025-10-02,Rent,-950.00,EUR,Housing,Main
+2025-10-03,Wolt,-37.28,EUR,Eating Out,Main
+2025-10-05,Lidl,-40.59,EUR,Groceries,Main
+2025-10-06,Wolt,-40.92,EUR,Eating Out,Main
+2025-10-09,Restaurant,-73.39,EUR,Eating Out,Main
+2025-10-11,Internet,-18.02,EUR,Utilities,Main
+2025-10-12,Lidl,-48.90,EUR,Groceries,Main
+2025-10-12,Pharmacy,-26.30,EUR,Health,Main
+2025-10-13,Lidl,-29.93,EUR,Groceries,Main
+2025-10-15,Restaurant,-60.48,EUR,Eating Out,Main
+2025-10-16,Gym,-42.70,EUR,Health,Main
+2025-10-19,Gym,-22.69,EUR,Health,Main
+2025-10-20,Wolt,-31.54,EUR,Eating Out,Main
+2025-10-21,Lidl,-32.72,EUR,Groceries,Main
+2025-10-22,S-Market,-15.80,EUR,Groceries,Main
+2025-10-23,Lidl,-40.60,EUR,Groceries,Main
+2025-10-24,K-Market,-28.93,EUR,Groceries,Main
+2025-10-29,HSL,-7.86,EUR,Transport,Main
+2025-10-30,K-Market,-17.81,EUR,Groceries,Main
+2025-10-31,Electricity,-105.55,EUR,Utilities,Main
+2025-11-01,Salary,2600.00,EUR,Income,Main
+2025-11-01,Restaurant,-59.02,EUR,Eating Out,Main
+2025-11-01,Gym,-38.42,EUR,Health,Main
+2025-11-02,Rent,-950.00,EUR,Housing,Main
+2025-11-02,K-Market,-30.10,EUR,Groceries,Main
+2025-11-02,K-Market,-7.12,EUR,Groceries,Main
+2025-11-03,Restaurant,-77.21,EUR,Eating Out,Main
+2025-11-06,Lidl,-57.80,EUR,Groceries,Main
+2025-11-07,Wolt,-13.97,EUR,Eating Out,Main
+2025-11-08,Gym,-38.79,EUR,Health,Main
+2025-11-10,Trip,-450.00,EUR,Travel,Main
+2025-11-11,Lidl,-40.74,EUR,Groceries,Main
+2025-11-11,Laptop,-899.00,EUR,Shopping,Main
+2025-11-12,Spotify,-12.45,EUR,Subscriptions,Main
+2025-11-13,VR,-37.03,EUR,Transport,Main
+2025-11-14,VR,-18.36,EUR,Transport,Main
+2025-11-14,Insurance,-220.00,EUR,Insurance,Main
+2025-11-15,Internet,-39.82,EUR,Utilities,Main
+2025-11-17,Lidl,-39.26,EUR,Groceries,Main
+2025-11-19,HSL,-6.90,EUR,Transport,Main
+2025-11-20,Wolt,-37.46,EUR,Eating Out,Main
+2025-11-22,Netflix,-12.10,EUR,Subscriptions,Main
+2025-11-23,Internet,-41.62,EUR,Utilities,Main
+2025-11-25,Internet,-41.72,EUR,Utilities,Main
+2025-11-26,Lidl,-22.24,EUR,Groceries,Main
+2025-11-27,Internet,-31.44,EUR,Utilities,Main
+2025-11-28,Gym,-33.87,EUR,Health,Main
+2025-11-30,Internet,-36.67,EUR,Utilities,Main
+2025-11-30,HSL,-6.02,EUR,Transport,Main
+2025-12-01,Salary,2600.00,EUR,Income,Main
+2025-12-02,Rent,-950.00,EUR,Housing,Main
+2025-12-02,Electricity,-40.66,EUR,Utilities,Main
+2025-12-04,Internet,-26.55,EUR,Utilities,Main
+2025-12-05,Pharmacy,-29.20,EUR,Health,Main
+2025-12-06,Wolt,-29.19,EUR,Eating Out,Main
+2025-12-06,VR,-40.75,EUR,Transport,Main
+2025-12-07,Wolt,-18.66,EUR,Eating Out,Main
+2025-12-10,VR,-21.42,EUR,Transport,Main
+2025-12-11,Spotify,-12.46,EUR,Subscriptions,Main
+2025-12-12,HSL,-2.58,EUR,Transport,Main
+2025-12-13,S-Market,-36.02,EUR,Groceries,Main
+2025-12-14,Netflix,-14.78,EUR,Subscriptions,Main
+2025-12-14,Netflix,-12.24,EUR,Subscriptions,Main
+2025-12-15,S-Market,-12.35,EUR,Groceries,Main
+2025-12-16,Wolt,-28.05,EUR,Eating Out,Main
+2025-12-17,VR,-42.24,EUR,Transport,Main
+2025-12-20,Wolt,-43.79,EUR,Eating Out,Main
+2025-12-21,HSL,-14.93,EUR,Transport,Main
+2025-12-22,K-Market,-6.78,EUR,Groceries,Main
+2025-12-23,Electricity,-65.83,EUR,Utilities,Main
+2025-12-24,S-Market,-70.41,EUR,Groceries,Main
+2025-12-25,S-Market,-59.45,EUR,Groceries,Main
+2025-12-27,S-Market,-76.95,EUR,Groceries,Main
+2025-12-28,Gym,-53.99,EUR,Health,Main
+2025-12-29,HSL,-14.89,EUR,Transport,Main
+2026-01-01,Salary,2600.00,EUR,Income,Main
+2026-01-02,Rent,-950.00,EUR,Housing,Main
+2026-01-02,Pharmacy,-32.14,EUR,Health,Main
+2026-01-03,Internet,-30.40,EUR,Utilities,Main
+2026-01-03,Electricity,-84.67,EUR,Utilities,Main
+2026-01-04,Lidl,-24.52,EUR,Groceries,Main
+2026-01-04,K-Market,-37.88,EUR,Groceries,Main
+2026-01-05,VR,-29.82,EUR,Transport,Main
+2026-01-06,Restaurant,-27.38,EUR,Eating Out,Main
+2026-01-10,HSL,-12.50,EUR,Transport,Main
+2026-01-10,Restaurant,-82.45,EUR,Eating Out,Main
+2026-01-11,Internet,-16.08,EUR,Utilities,Main
+2026-01-12,HSL,-3.01,EUR,Transport,Main
+2026-01-13,Netflix,-17.11,EUR,Subscriptions,Main
+2026-01-15,S-Market,-74.82,EUR,Groceries,Main
+2026-01-16,K-Market,-26.99,EUR,Groceries,Main
+2026-01-17,HSL,-8.21,EUR,Transport,Main
+2026-01-17,Restaurant,-45.62,EUR,Eating Out,Main
+2026-01-20,Lidl,-30.83,EUR,Groceries,Main
+2026-01-22,HSL,-4.02,EUR,Transport,Main
+2026-01-24,Lidl,-21.55,EUR,Groceries,Main
+2026-01-24,S-Market,-32.26,EUR,Groceries,Main
+2026-01-25,Pharmacy,-6.71,EUR,Health,Main
+2026-01-25,Internet,-35.05,EUR,Utilities,Main
+2026-01-27,VR,-12.41,EUR,Transport,Main
+2026-01-28,Netflix,-13.46,EUR,Subscriptions,Main

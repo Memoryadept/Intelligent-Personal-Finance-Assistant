@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Numeric, Boolean
+from sqlalchemy import Column, Integer, String, Date, Numeric, Boolean, UniqueConstraint
 from .db import Base
 
 class Transaction(Base):
@@ -20,3 +20,16 @@ class CategoryRule(Base):
     category = Column(String, nullable=False, index=True)
     priority = Column(Integer, nullable=False, default=100)  # lower number = applied first
     is_regex = Column(Boolean, nullable=False, default=False)
+
+class Budget(Base):
+    __tablename__ = "budgets"
+
+    id = Column(Integer, primary_key=True, index=True)
+    year = Column(Integer, nullable=False, index=True)
+    month = Column(Integer, nullable=False, index=True)  # 1-12
+    category = Column(String, nullable=False, index=True)
+    limit_amount = Column(Numeric(12, 2), nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint("year", "month", "category", name="uq_budget_year_month_category"),
+    )

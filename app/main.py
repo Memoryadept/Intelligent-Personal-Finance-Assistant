@@ -1,16 +1,17 @@
 from datetime import date
 from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, and_
 from decimal import Decimal
 from collections import defaultdict
 
 from .db import Base, engine, get_db
-from .models import Transaction, CategoryRule
+from .models import Transaction, CategoryRule, Budget
 from .categorizer import apply_rules_to_description
-from .schemas import TransactionOut, CategoryRuleCreate, CategoryRuleOut
+from .schemas import TransactionOut, CategoryRuleCreate, CategoryRuleOut, BudgetUpsert, BudgetOut
 from .importers import read_transactions_csv
-from app.utils_dates import month_range
+from .utils_dates import month_range
+from .utils_budget import parse_month_key, month_start_end
 
 
 Base.metadata.create_all(bind=engine)
@@ -270,3 +271,128 @@ def analytics_trend(
 
     return {"months": months, "category": category, "items": series}
 
+@app.post("/budgets", response_model=BudgetOut)
+def upsert_budget(payload: BudgetUpsert, db: Session = Depends(get_db)):
+    if payload.month < 1 or payload.month > 12:
+        raise HTTPException(status_code=400, detail="month must be 1-12")
+
+    category = payload.category.strip()
+    if not category:
+        raise HTTPException(status_code=400, detail="category cannot be empty")
+
+    existing = db.execute(
+        select(Budget).where(
+            Budget.year == payload.year,
+            Budget.month == payload.month,
+            Budget.category == category,
+        )
+    ).scalar_one_or_none()
+
+    if existing:
+        existing.limit_amount = payload.limit_amount
+        db.commit()
+        db.refresh(existing)
+        return existing
+
+    b = Budget(
+        year=payload.year,
+        month=payload.month,
+        category=category,
+        limit_amount=payload.limit_amount,
+    )
+    db.add(b)
+    db.commit()
+    db.refresh(b)
+    return b
+
+
+@app.get("/budgets", response_model=list[BudgetOut])
+def list_budgets(month: str | None = None, db: Session = Depends(get_db)):
+    stmt = select(Budget).order_by(Budget.year.desc(), Budget.month.desc(), Budget.category.asc())
+
+    if month:
+        y, m = parse_month_key(month)
+        stmt = stmt.where(Budget.year == y, Budget.month == m)
+
+    return list(db.execute(stmt).scalars().all())
+
+
+@app.delete("/budgets/{budget_id}", response_model=dict)
+def delete_budget(budget_id: int, db: Session = Depends(get_db)):
+    b = db.get(Budget, budget_id)
+    if not b:
+        raise HTTPException(status_code=404, detail="Budget not found")
+    db.delete(b)
+    db.commit()
+    return {"deleted": budget_id}
+
+@app.get("/budgets/status")
+def budget_status(month: str, db: Session = Depends(get_db)):
+    y, m = parse_month_key(month)
+    start, end = month_start_end(y, m)
+
+    budgets = list(
+        db.execute(
+            select(Budget).where(Budget.year == y, Budget.month == m)
+        ).scalars().all()
+    )
+
+    # Pull transactions for month
+    txs = list(
+        db.execute(
+            select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+        ).scalars().all()
+    )
+
+    # spending per category (expenses only)
+    spent = defaultdict(lambda: Decimal("0"))
+    for tx in txs:
+        amt = Decimal(tx.amount)
+        if amt < 0:
+            cat = tx.category or "Uncategorized"
+            spent[cat] += (-amt)
+
+    items = []
+    total_limit = Decimal("0")
+    total_spent = Decimal("0")
+
+    # report all budgets
+    for b in budgets:
+        cat = b.category
+        limit_amt = Decimal(b.limit_amount)
+        spent_amt = spent.get(cat, Decimal("0"))
+        remaining = limit_amt - spent_amt
+        pct = float(spent_amt / limit_amt * 100) if limit_amt != 0 else None
+
+        items.append({
+            "category": cat,
+            "limit": float(limit_amt),
+            "spent": float(spent_amt),
+            "remaining": float(remaining),
+            "percent_used": pct,
+            "status": "over" if remaining < 0 else ("warning" if pct is not None and pct >= 90 else "ok"),
+        })
+
+        total_limit += limit_amt
+        total_spent += spent_amt
+
+    # Sort: most used first
+    items.sort(key=lambda x: (x["percent_used"] is None, -(x["percent_used"] or 0)))
+
+    totals = {
+        "limit": float(total_limit),
+        "spent": float(total_spent),
+        "remaining": float(total_limit - total_spent),
+        "percent_used": float(total_spent / total_limit * 100) if total_limit != 0 else None,
+    }
+
+    # Also show categories you spent in that have no budget (optional but helpful)
+    unbudgeted = []
+    budgeted_categories = {b.category for b in budgets}
+    for cat, amt in spent.items():
+        if cat not in budgeted_categories:
+            unbudgeted.append({"category": cat, "spent": float(amt)})
+
+    unbudgeted.sort(key=lambda x: x["spent"], reverse=True)
+
+    return {"month": month, "items": items, "totals": totals, "unbudgeted_spend": unbudgeted}

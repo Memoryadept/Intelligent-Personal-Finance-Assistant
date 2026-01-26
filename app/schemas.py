@@ -29,3 +29,20 @@ class CategoryRuleOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+class BudgetUpsert(BaseModel):
+    year: int
+    month: int  # 1-12
+    category: str
+    limit_amount: float
+
+
+class BudgetOut(BaseModel):
+    id: int
+    year: int
+    month: int
+    category: str
+    limit_amount: float
+
+    class Config:
+        from_attributes = True

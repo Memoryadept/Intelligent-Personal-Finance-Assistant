@@ -203,3 +203,48 @@ def sarimax_forecast(
             upper_points.append(MonthPoint(mk, Decimal(str(hi))))
 
     return pred_points, lower_points, upper_points
+
+def forecast_next_month(
+    db,
+    category: str | None,
+    method: str = "sarimax",
+    window: int = 6,
+    alpha: float = 0.7,
+    seasonal_period: int = 12,
+):
+    series = get_monthly_spend_series(db, category=category)
+    if not series:
+        return None
+
+    method = method.lower().strip()
+    lower = None
+    upper = None
+
+    if method == "ma":
+        preds = moving_average_forecast(series, months_ahead=1, window=window)
+        pred = preds[0].spend if preds else None
+    elif method == "seasonal":
+        preds = seasonal_forecast(series, months_ahead=1)
+        pred = preds[0].spend if preds else None
+    elif method == "blend":
+        preds = blend_forecast(series, months_ahead=1, window=window, alpha=alpha)
+        pred = preds[0].spend if preds else None
+    elif method == "sarimax":
+        preds, lo, hi = sarimax_forecast(series, months_ahead=1, seasonal_period=seasonal_period)
+        pred = preds[0].spend if preds else None
+        if lo and hi:
+            lower = lo[0].spend
+            upper = hi[0].spend
+    else:
+        raise ValueError("method must be one of: ma, seasonal, blend, sarimax")
+
+    if pred is None:
+        return None
+
+    return {
+        "next_month": preds[0].month,
+        "pred": pred,
+        "lower": lower,
+        "upper": upper,
+        "history_points": len(series),
+    }

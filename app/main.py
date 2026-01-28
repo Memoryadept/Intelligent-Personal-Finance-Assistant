@@ -20,6 +20,7 @@ from .forecasting import (
     seasonal_forecast,
     blend_forecast,
     sarimax_forecast,
+    forecast_next_month,
 )
 
 
@@ -596,4 +597,84 @@ def forecast_spend(
             "upper": [{"month": p.month, "spend": float(p.spend)} for p in upper],
         },
 }
-    
+
+@app.get("/risk/budget-overrun")
+def budget_overrun_risk(
+    month: str,
+    method: str = "sarimax",
+    window: int = 6,
+    alpha: float = 0.7,
+    db: Session = Depends(get_db),
+):
+    # month is the budget month you want to evaluate (typically next month)
+    try:
+        year, mon = parse_month_key(month)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    budgets = list(
+        db.execute(
+            select(Budget).where(Budget.year == year, Budget.month == mon)
+        ).scalars().all()
+    )
+
+    if not budgets:
+        return {"month": month, "method": method, "items": [], "detail": "No budgets set for this month"}
+
+    items = []
+    for b in budgets:
+        fc = forecast_next_month(
+            db,
+            category=b.category,
+            method=method,
+            window=window,
+            alpha=alpha,
+        )
+
+        if not fc:
+            items.append({
+                "category": b.category,
+                "budget": float(b.limit_amount),
+                "forecast_month": None,
+                "forecast": None,
+                "risk": "unknown",
+                "reason": "Not enough history",
+            })
+            continue
+
+        budget = Decimal(b.limit_amount)
+        pred = Decimal(fc["pred"])
+        upper = Decimal(fc["upper"]) if fc["upper"] is not None else None
+
+        overrun = pred - budget
+        # Risk rule of thumb:
+        # - high: upper CI exceeds budget OR predicted exceeds by >10%
+        # - medium: predicted exceeds budget or within 10% of budget
+        # - low: comfortably below
+        risk = "low"
+        if upper is not None and upper > budget:
+            risk = "high"
+        elif pred > budget * Decimal("1.10"):
+            risk = "high"
+        elif pred > budget or pred > budget * Decimal("0.90"):
+            risk = "medium"
+
+        items.append({
+            "category": b.category,
+            "budget": float(budget),
+            "forecast_month": fc["next_month"],
+            "forecast": float(pred),
+            "interval_95": None if fc["lower"] is None or fc["upper"] is None else {
+                "lower": float(fc["lower"]),
+                "upper": float(fc["upper"]),
+            },
+            "overrun": float(overrun),
+            "risk": risk,
+            "history_points": fc["history_points"],
+        })
+
+    # Sort: highest risk first, then biggest overrun
+    risk_rank = {"high": 0, "medium": 1, "low": 2, "unknown": 3}
+    items.sort(key=lambda x: (risk_rank.get(x["risk"], 9), -(x.get("overrun") or 0)))
+
+    return {"month": month, "method": method, "items": items}

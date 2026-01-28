@@ -1,4 +1,5 @@
 from datetime import date
+from unicodedata import category
 from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import select, and_
@@ -13,6 +14,13 @@ from .importers import read_transactions_csv
 from .utils_dates import month_range
 from .utils_budget import parse_month_key, month_start_end
 from .utils_history import prev_months
+from .forecasting import (
+    get_monthly_spend_series,
+    moving_average_forecast,
+    seasonal_forecast,
+    blend_forecast,
+    sarimax_forecast,
+)
 
 
 Base.metadata.create_all(bind=engine)
@@ -539,3 +547,53 @@ def apply_budget_suggestions(
         "skipped": skipped,
         "categories_suggested": len(totals),
     }
+
+@app.get("/forecast/spend")
+def forecast_spend(
+    months_ahead: int = 3,
+    category: str | None = None,
+    method: str = "blend",  # "ma" | "seasonal" | "blend"
+    window: int = 6,
+    alpha: float = 0.7,
+    db: Session = Depends(get_db),
+):
+    if months_ahead < 1 or months_ahead > 24:
+        raise HTTPException(status_code=400, detail="months_ahead must be 1..24")
+    if window < 1 or window > 24:
+        raise HTTPException(status_code=400, detail="window must be 1..24")
+    if alpha < 0 or alpha > 1:
+        raise HTTPException(status_code=400, detail="alpha must be 0..1")
+    method = method.lower().strip()
+
+    series = get_monthly_spend_series(db, category=category)
+
+    if not series:
+        return {"category": category, "method": method, "history": [], "forecast": []}
+
+    lower = []
+    upper = []
+
+    if method == "ma":
+        preds = moving_average_forecast(series, months_ahead, window=window)
+    elif method == "seasonal":
+        preds = seasonal_forecast(series, months_ahead)
+    elif method == "blend":
+        preds = blend_forecast(series, months_ahead, window=window, alpha=alpha)
+    elif method == "sarimax":
+        preds, lower, upper = sarimax_forecast(series, months_ahead, seasonal_period=12)
+    else:
+        raise HTTPException(status_code=400, detail="method must be one of: ma, seasonal, blend, sarimax")
+
+
+    return {
+        "category": category,
+        "method": method,
+        "params": {"months_ahead": months_ahead, "window": window, "alpha": alpha},
+        "history": [{"month": p.month, "spend": float(p.spend)} for p in series[-24:]],
+        "forecast": [{"month": p.month, "spend": float(p.spend)} for p in preds],
+        "interval_95": None if not lower or not upper else {
+            "lower": [{"month": p.month, "spend": float(p.spend)} for p in lower],
+            "upper": [{"month": p.month, "spend": float(p.spend)} for p in upper],
+        },
+}
+    

@@ -8,10 +8,11 @@ from collections import defaultdict
 from .db import Base, engine, get_db
 from .models import Transaction, CategoryRule, Budget
 from .categorizer import apply_rules_to_description
-from .schemas import TransactionOut, CategoryRuleCreate, CategoryRuleOut, BudgetUpsert, BudgetOut
+from .schemas import TransactionOut, CategoryRuleCreate, CategoryRuleOut, BudgetUpsert, BudgetOut, BudgetSuggestionsOut
 from .importers import read_transactions_csv
 from .utils_dates import month_range
 from .utils_budget import parse_month_key, month_start_end
+from .utils_history import prev_months
 
 
 Base.metadata.create_all(bind=engine)
@@ -396,3 +397,145 @@ def budget_status(month: str, db: Session = Depends(get_db)):
     unbudgeted.sort(key=lambda x: x["spent"], reverse=True)
 
     return {"month": month, "items": items, "totals": totals, "unbudgeted_spend": unbudgeted}
+
+@app.post("/budgets/suggest", response_model=BudgetSuggestionsOut)
+def suggest_budgets(
+    month: str,
+    lookback_months: int = 3,
+    buffer_pct: float = 10.0,
+    db: Session = Depends(get_db),
+):
+    try:
+        _ = parse_month_key(month)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    if lookback_months < 1 or lookback_months > 24:
+        raise HTTPException(status_code=400, detail="lookback_months must be 1..24")
+    if buffer_pct < 0 or buffer_pct > 200:
+        raise HTTPException(status_code=400, detail="buffer_pct must be 0..200")
+
+    months = prev_months(month, lookback_months)
+
+    # sum spend per category across lookback months
+    totals = defaultdict(lambda: Decimal("0"))
+    month_counts = defaultdict(int)
+
+    for mk in months:
+        y, m = parse_month_key(mk)
+        start, end = month_start_end(y, m)
+
+        txs = list(
+            db.execute(
+                select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+            ).scalars().all()
+        )
+
+        per_month = defaultdict(lambda: Decimal("0"))
+        for tx in txs:
+            amt = Decimal(tx.amount)
+            if amt < 0:
+                cat = tx.category or "Uncategorized"
+                per_month[cat] += (-amt)
+
+        for cat, amt in per_month.items():
+            totals[cat] += amt
+            month_counts[cat] += 1
+
+    items = []
+    for cat, total in totals.items():
+        count = month_counts[cat] or lookback_months
+        avg = total / Decimal(count)
+        suggested = avg * (Decimal("1") + Decimal(str(buffer_pct)) / Decimal("100"))
+        items.append({
+            "category": cat,
+            "avg_spend": float(avg),
+            "suggested_limit": float(suggested),
+        })
+
+    items.sort(key=lambda x: x["suggested_limit"], reverse=True)
+
+    return {
+        "month": month,
+        "lookback_months": lookback_months,
+        "buffer_pct": buffer_pct,
+        "items": items,
+    }
+
+@app.post("/budgets/apply-suggestions", response_model=dict)
+def apply_budget_suggestions(
+    month: str,
+    lookback_months: int = 3,
+    buffer_pct: float = 10.0,
+    overwrite: bool = False,
+    db: Session = Depends(get_db),
+):
+    # Validate month early
+    try:
+        year, mon = parse_month_key(month)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    # Reuse the same suggestion logic (inline, to keep it simple)
+    months = prev_months(month, lookback_months)
+
+    totals = defaultdict(lambda: Decimal("0"))
+    month_counts = defaultdict(int)
+
+    for mk in months:
+        y, m = parse_month_key(mk)
+        start, end = month_start_end(y, m)
+
+        txs = list(
+            db.execute(
+                select(Transaction).where(Transaction.date >= start, Transaction.date < end)
+            ).scalars().all()
+        )
+
+        per_month = defaultdict(lambda: Decimal("0"))
+        for tx in txs:
+            amt = Decimal(tx.amount)
+            if amt < 0:
+                cat = tx.category or "Uncategorized"
+                per_month[cat] += (-amt)
+
+        for cat, amt in per_month.items():
+            totals[cat] += amt
+            month_counts[cat] += 1
+
+    created = 0
+    updated = 0
+    skipped = 0
+
+    for cat, total in totals.items():
+        count = month_counts[cat] or lookback_months
+        avg = total / Decimal(count)
+        suggested = avg * (Decimal("1") + Decimal(str(buffer_pct)) / Decimal("100"))
+
+        # Find existing budget for (year, month, category)
+        existing = db.execute(
+            select(Budget).where(Budget.year == year, Budget.month == mon, Budget.category == cat)
+        ).scalar_one_or_none()
+
+        if existing:
+            if overwrite:
+                existing.limit_amount = float(suggested)
+                updated += 1
+            else:
+                skipped += 1
+        else:
+            db.add(Budget(year=year, month=mon, category=cat, limit_amount=float(suggested)))
+            created += 1
+
+    db.commit()
+
+    return {
+        "month": month,
+        "lookback_months": lookback_months,
+        "buffer_pct": buffer_pct,
+        "overwrite": overwrite,
+        "created": created,
+        "updated": updated,
+        "skipped": skipped,
+        "categories_suggested": len(totals),
+    }

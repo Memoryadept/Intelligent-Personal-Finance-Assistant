@@ -46,3 +46,14 @@ class BudgetOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+class BudgetSuggestion(BaseModel):
+    category: str
+    avg_spend: float
+    suggested_limit: float
+
+class BudgetSuggestionsOut(BaseModel):
+    month: str
+    lookback_months: int
+    buffer_pct: float
+    items: list[BudgetSuggestion]

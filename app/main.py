@@ -2,7 +2,7 @@ from datetime import date
 from unicodedata import category
 from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import select, and_
+from sqlalchemy import select, and_, func
 from decimal import Decimal
 from collections import defaultdict
 
@@ -14,6 +14,8 @@ from .importers import read_transactions_csv
 from .utils_dates import month_range
 from .utils_budget import parse_month_key, month_start_end
 from .utils_history import prev_months
+from .nlq_time import resolve_range, shift_month, find_explicit_month
+from .nlq_parser import parse_nlq
 from .forecasting import (
     get_monthly_spend_series,
     moving_average_forecast,
@@ -678,3 +680,130 @@ def budget_overrun_risk(
     items.sort(key=lambda x: (risk_rank.get(x["risk"], 9), -(x.get("overrun") or 0)))
 
     return {"month": month, "method": method, "items": items}
+
+@app.post("/nlq")
+def nlq(query: str, db: Session = Depends(get_db)):
+    # known categories from transactions + budgets
+    tx_cats = db.execute(select(Transaction.category).distinct()).scalars().all()
+    known = sorted({c for c in tx_cats if c})
+
+    bud_cats = []
+    try:
+        bud_cats = db.execute(select(Budget.category).distinct()).scalars().all()
+    except Exception:
+        pass
+    known = sorted(set(known).union({c for c in bud_cats if c}))
+
+    # time range
+    rng = resolve_range(query)
+
+    # parse intent/metric/category
+    parsed = parse_nlq(query, known)
+
+    # Route
+    if parsed.intent == "summary":
+        # single month -> use /analytics/summary
+        if rng.start == rng.end:
+            res = analytics_summary(rng.start, db)
+        else:
+            res = analytics_summary_range(rng.start, rng.end, db)
+
+        # metric filter
+        if parsed.metric == "income":
+            res = {"value": res.get("income"), "range": {"start": rng.start, "end": rng.end}}
+        elif parsed.metric == "spend":
+            res = {"value": res.get("expense"), "range": {"start": rng.start, "end": rng.end}}
+        elif parsed.metric == "net":
+            res = {"value": res.get("net"), "range": {"start": rng.start, "end": rng.end}}
+
+        return {"query": query, "parsed": parsed.__dict__, "range": rng.__dict__, "result": res}
+
+    if parsed.intent == "by_category":
+        # for ranges, you can either:
+        # - return the latest month breakdown, or
+        # - implement a by-category range endpoint later
+        # For now: return breakdown for end month
+        return {"query": query, "parsed": parsed.__dict__, "range": rng.__dict__, "result": analytics_by_category(rng.end, db)}
+
+    if parsed.intent == "top_descriptions":
+        limit = parsed.limit or 10
+        return {"query": query, "parsed": parsed.__dict__, "range": rng.__dict__, "result": analytics_top_descriptions(rng.end, limit, db)}
+
+    if parsed.intent == "forecast":
+        return {
+            "query": query,
+            "parsed": parsed.__dict__,
+            "range": rng.__dict__,
+            "result": forecast_spend(months_ahead=6, category=parsed.category, method="sarimax", window=6, alpha=0.7, db=db),
+        }
+
+    if parsed.intent == "budget_risk":
+        # If query doesn’t specify a month, rng defaults to this month.
+        # Most “risk” questions mean next month, so auto-shift if user didn’t specify.
+        target = rng.start
+        if "next month" in query.lower():
+            target = rng.start  # already next month by resolve_range
+        elif "last month" in query.lower():
+            target = rng.start
+        elif find_explicit_month(query) is None:
+            # assume next month for risk if not explicit
+            target = shift_month(rng.start, 1)
+
+        return {
+            "query": query,
+            "parsed": parsed.__dict__,
+            "target_month": target,
+            "result": budget_overrun_risk(month=target, method="sarimax", window=6, alpha=0.7, db=db),
+        }
+
+    return {"query": query, "parsed": parsed.__dict__, "range": rng.__dict__, "result": {"detail": "No handler"}}
+
+
+def month_to_dates(month: str):
+    y, m = parse_month_key(month)
+    return month_start_end(y, m)
+
+@app.get("/analytics/summary-range")
+def analytics_summary_range(start: str, end: str, db: Session = Depends(get_db)):
+    # start/end are inclusive months (YYYY-MM)
+    try:
+        y1, m1 = parse_month_key(start)
+        y2, m2 = parse_month_key(end)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    # build list of months from start..end
+    months = []
+    cur = start
+    while True:
+        months.append(cur)
+        if cur == end:
+            break
+        cur = shift_month(cur, 1)  # reuse from nlq_time, so import it (see below)
+
+    from decimal import Decimal
+    income = Decimal("0")
+    expense = Decimal("0")
+    tx_count = 0
+
+    for mk in months:
+        ys, ms = parse_month_key(mk)
+        s, e = month_start_end(ys, ms)
+        txs = list(db.execute(select(Transaction).where(Transaction.date >= s, Transaction.date < e)).scalars().all())
+        tx_count += len(txs)
+        for tx in txs:
+            amt = Decimal(tx.amount)
+            if amt >= 0:
+                income += amt
+            else:
+                expense += (-amt)
+
+    return {
+        "start": start,
+        "end": end,
+        "income": float(income),
+        "expense": float(expense),
+        "net": float(income - expense),
+        "transactions": tx_count,
+        "months": months,
+    }
